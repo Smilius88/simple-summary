@@ -41,9 +41,10 @@ def common_words(text):
 
 def summary_sentence(text):
 	d = common_words(text)
-	noun, _ = d['nouns'].most_common(1)[0]
+	noun1, _ = d['nouns'].most_common(1)[0]
+	noun2, _ = d['nouns'].most_common(2)[1]
 	verb, _ = d['verbs'].most_common(1)[0]
 	adj, _ = d['adjectives'].most_common(1)[0]
 	adv, _ = d['adverbs'].most_common(1)[0]
 
-	return " ".join([adj, noun, adv, verb])
+	return " ".join([adj, noun1, adv, verb, noun2])
