@@ -17,7 +17,9 @@ def common_words(text):
 		if word.isalpha():
 			words.append(word.lower())
 	english_stops = set(stopwords.words('english'))
-	words = [word for word in words if word not in english_stops]
+	numbers = ['one', 'two', 'three', 'four', 'five', 'six', 'seven',
+	'eight', 'nine', 'ten', 'once', 'twice', 'first', 'second']
+	words = [word for word in words if word not in english_stops and word not in numbers]
 	nouns, verbs, adverbs, adject = [], [], [], []
 	for word in words:
 		try:
