@@ -19,15 +19,17 @@ def common_words(text):
 	english_stops = set(stopwords.words('english'))
 	words = [word for word in words if word not in english_stops]
 	nouns, verbs, adverbs, adject = [], [], [], []
-	try:
-		syn = wordnet.synsets(word)[0]
-		c = syn.pos
-		if c == 'n': nouns.append(word)
-		elif c == 'v': verbs.append(word)
-		elif c == 'a': adject.append(word)
-		elif c == 'r': adverbs.append(word)
-	except IndexError:
-		print word
+	for word in words:
+		try:
+			syn = wordnet.synsets(word)[0]
+			c = syn.pos
+			if c == 'n': nouns.append(word)
+			elif c == 'v': verbs.append(word)
+			elif c == 'a': adject.append(word)
+			elif c == 'r': adverbs.append(word)
+		except IndexError:
+			# print word
+			continue
 
 	wordlist = {}
 	wordlist['nouns'] = Counter(nouns)
@@ -36,3 +38,12 @@ def common_words(text):
 	wordlist['verbs'] = Counter(verbs)
 
 	return wordlist
+
+def summary_sentence(text):
+	d = common_words(text)
+	noun, _ = d['nouns'].most_common(1)[0]
+	verb, _ = d['verbs'].most_common(1)[0]
+	adj, _ = d['adjectives'].most_common(1)[0]
+	adv, _ = d['adverbs'].most_common(1)[0]
+
+	return " ".join([adj, noun, adv, verb])
